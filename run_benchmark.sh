@@ -1,21 +1,21 @@
 #!/bin/bash
 
-# average () {
-#     average=$(awk '
-#         {
-#             total += $1;
-#             count++;
-#         }
-#         END {
-#             if (count > 0) {
-#                 printf "%.6f\n", total / count;
-#             } else {
-#                 print "0.000000";
-#             }
-#         }
-#     ' "$1")
-#     echo "$average"
-# }
+average () {
+    average=$(awk '
+        {
+            total += $1;
+            count++;
+        }
+        END {
+            if (count > 0) {
+                printf "%.6f\n", total / count;
+            } else {
+                print "0.000000";
+            }
+        }
+    ' "$1")
+    echo "$average"
+}
 
 AVG_INTR="./benchmark/avg_intrinsics.txt"
 AVG_OMP="./benchmark/avg_omp.txt"
@@ -26,38 +26,38 @@ START=100
 INCREMENT=100
 END=10000
 
-# for (( i = START; i <= END; i += INCREMENT ))
-# do
-#     echo Starting for $i
-#     for j in {1..10}
-#     do
-#         ./benchmark/intrinsics_simple_multiply $i
-#         ./benchmark/omp_simple_multiply $i
-#         ./benchmark/vc_simple_multiply $i
-#         ./benchmark/simple_multiply $i
-#     done
-#     printf "$i " >> $AVG_INTR
-#     echo $(average "./benchmark/intrinsics_simple_multiply_times_for_$i.txt") >> $AVG_INTR
+for (( i = START; i <= END; i += INCREMENT ))
+do
+    echo Starting for $i
+    for j in {1..10}
+    do
+        ./benchmark/intrinsics_simple_dummy_loop $i
+        ./benchmark/omp_simple_dummy_loop $i
+        ./benchmark/vc_simple_dummy_loop $i
+        ./benchmark/simple_dummy_loop $i
+    done
+    printf "$((3*i*i)) " >> $AVG_INTR
+    echo $(average "./benchmark/intrinsics_simple_dummy_loop_times_for_$i.txt") >> $AVG_INTR
 
-#     printf "$i " >> $AVG_OMP
-#     echo $(average "./benchmark/omp_simple_multiply_times_for_$i.txt") >> $AVG_OMP
+    printf "$((3*i*i)) " >> $AVG_OMP
+    echo $(average "./benchmark/omp_simple_dummy_loop_times_for_$i.txt") >> $AVG_OMP
 
-#     printf "$i " >> $AVG_VC
-#     echo $(average "./benchmark/vc_simple_multiply_times_for_$i.txt") >> $AVG_VC
+    printf "$((3*i*i)) " >> $AVG_VC
+    echo $(average "./benchmark/vc_simple_dummy_loop_times_for_$i.txt") >> $AVG_VC
 
-#     printf "$i " >> $AVG_SIMPLE
-#     echo $(average "./benchmark/simple_multiply_times_for_$i.txt") >> $AVG_SIMPLE
-# done
+    printf "$((3*i*i)) " >> $AVG_SIMPLE
+    echo $(average "./benchmark/simple_dummy_loop_times_for_$i.txt") >> $AVG_SIMPLE
+done
 
-# rm ./benchmark/*_times_for*.txt
+rm ./benchmark/*_times_for*.txt
 
 gnuplot << EOF
     set terminal png size 1000, 700
-    set output "./benchmark/benchmark.png"
+    set output "./benchmark/benchmark_dummy_loop.png"
     
-    set title "Comparison of Four Data Series" font ",16"
-    set xlabel "X Axis (Independent Variable)"
-    set ylabel "Y Axis (Data Value)"
+    set title "Comparision of four approaches" font ",16"
+    set xlabel "total size of data"
+    set ylabel "time [microseconds]"
     
     # Add a key (legend) in the top left corner
     set key top left

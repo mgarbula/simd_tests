@@ -15,10 +15,11 @@ void init(float* arr, int size, int seed) {
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     int size = SIZE_1D * SIZE_1D;
     std::ofstream timesFile;
-    timesFile.open("./omp/omp_simple.txt", std::ios::app);
+    std::string fileName(argv[0]);
+    timesFile.open(fileName + ".txt", std::ios::app);
 
     float* A = (float*) malloc(size * sizeof(float));
     float* B = (float*) malloc(size * sizeof(float));

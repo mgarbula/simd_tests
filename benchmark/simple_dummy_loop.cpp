@@ -1,11 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include <immintrin.h>
 #include <random>
 #include <chrono>
-
-typedef __m256 float8;
-typedef __m256i int8;
+#include <mm_malloc.h>
 
 const int SIZE_1D = 10000;
 
@@ -21,7 +18,6 @@ void init(float* arr, int size, int seed) {
 int main(int argc, char* argv[]) {
     int mul = atoi(argv[1]);
     int size = mul * SIZE_1D;
-    const int VECTOR_SIZE = sizeof(float8) / sizeof(float);
 
     std::ofstream timesFile;
     std::string fileName(argv[0]);
@@ -34,15 +30,17 @@ int main(int argc, char* argv[]) {
     init(B, size, 123);
     init(C, size, 321);
 
-    auto t1 = std::chrono::high_resolution_clock::now();
-    for (int k = 0; k < 10; k++) {
-        for (int i = 0; i < size; i += VECTOR_SIZE) {
-            float8 vec_b = _mm256_load_ps(B + i);
-            float8 vec_c = _mm256_load_ps(C + i);
+    for (int i = 0; i < size; i++) {
+        int b = B[i];
+        int c = C[i];
+        int a = b + c;
+        a *= 3;
+        A[i] = a;
+    }
 
-            float8 vec_a = _mm256_add_ps(vec_b, vec_c);
-            _mm256_store_ps(A + i, vec_a);
-        }
+    auto t1 = std::chrono::high_resolution_clock::now();
+    for (int i = 0; i < size; i++) {
+        A[i] = B[i] + C[i];
     }
     auto t2 = std::chrono::high_resolution_clock::now();
     auto ms_int = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);

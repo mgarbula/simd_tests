@@ -46,7 +46,25 @@ average () {
 # echo "start intrinsics_simple"
 # for i in {1..100}
 # do
-#     ./intrinsics_simple
+#     ./intrinsics/intrinsics_simple
+# done
+
+# echo "start intrinsics_simple_dummy_loop"
+# for i in {1..100}
+# do
+#     ./intrinsics/intrinsics_simple_dummy_loop
+# done
+
+# echo "start intrinsics_continuous"
+# for i in {1..100}
+# do
+#     ./intrinsics/intrinsics_continuous
+# done
+
+# echo "start intrinsics_continuous_dummy_loop"
+# for i in {1..100}
+# do
+#     ./intrinsics/intrinsics_continuous_dummy_loop
 # done
 
 # echo "start intrinsics_simple_multiply"
@@ -55,11 +73,11 @@ average () {
 #     ./intrinsics/intrinsics_simple_multiply
 # done
 
-echo "start intrinsics_simple_multiply_dummy_loop"
-for i in {1..100}
-do
-    ./intrinsics/intrinsics_simple_multiply_dummy_loop
-done
+# echo "start intrinsics_simple_multiply_dummy_loop"
+# for i in {1..100}
+# do
+#     ./intrinsics/intrinsics_simple_multiply_dummy_loop
+# done
 
 # echo "start omp_simple"
 # for i in {1..100}
@@ -73,11 +91,12 @@ done
 #     ./omp/omp_simple_dummy_loop
 # done
 
-# echo "start get_from_memory"
+# echo "start warm_up"
 # for i in {1..100}
 # do
-#     ./get_from_memory
+#     ./warm_up
 # done
+
 
 # average "./simple/simple.txt"
 # average "./simple/simple_dummy_loop.txt"
@@ -85,9 +104,10 @@ done
 # average "./vc/vc_simple_dummy_loop.txt"
 average "./intrinsics/intrinsics_simple.txt"
 average "./intrinsics/intrinsics_simple_dummy_loop.txt"
-average "./intrinsics/intrinsics_simple_multiply.txt"
-average "./intrinsics/intrinsics_simple_multiply_dummy_loop.txt"
+average "./intrinsics/intrinsics_continuous.txt"
+average "./intrinsics/intrinsics_continuous_dummy_loop.txt"
+# average "./intrinsics/intrinsics_simple_multiply.txt"
+# average "./intrinsics/intrinsics_simple_multiply_dummys_loop.txt"
 # average "./omp/omp_simple.txt"
 # average "./omp/omp_simple_dummy_loop.txt"
-
-average "get_from_memory.txt"
+average "warm_up.txt"

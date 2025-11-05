@@ -17,11 +17,12 @@ void init(float* arr, int size, int seed) {
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     int size = SIZE_1D * SIZE_1D;
     const int VECTOR_SIZE = sizeof(float8) / sizeof(float);
     std::ofstream timesFile;
-    timesFile.open("intrinsics_simple_dummy_loop.txt", std::ios::app);
+    std::string fileName(argv[0]);
+    timesFile.open(fileName + ".txt", std::ios::app);
 
     float* A = (float*) _mm_malloc(size * sizeof(float), 32);
     float* B = (float*) _mm_malloc(size * sizeof(float), 32);

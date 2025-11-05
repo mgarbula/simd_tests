@@ -2,8 +2,10 @@
 #include <fstream>
 #include <random>
 #include <chrono>
-#include <omp.h>
+#include <Vc/Vc>
 #include <mm_malloc.h>
+
+using floatv = Vc::float_v;
 
 const int SIZE_1D = 10000;
 
@@ -31,12 +33,21 @@ int main(int argc, char* argv[]) {
     init(B, size, 123);
     init(C, size, 321);
 
+    for (int i = 0; i < size; i++) {
+        int b = B[i];
+        int c = C[i];
+        int a = b + c;
+        a *= 3;
+        A[i] = a;
+    }
+
     auto t1 = std::chrono::high_resolution_clock::now();
-    for (int k = 0; k < 10; k++) {
-        #pragma omp simd
-        for (int i = 0; i < size; i++) {
-            A[i] = B[i] + C[i];
-        }
+    for (int i = 0; i < size; i += floatv::Size) {
+        floatv vec_b(B + i, Vc::Aligned);
+        floatv vec_c(C + i, Vc::Aligned);
+
+        floatv vec_a = vec_b + vec_c;
+        vec_a.store(A + i);
     }
     auto t2 = std::chrono::high_resolution_clock::now();
     auto ms_int = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);

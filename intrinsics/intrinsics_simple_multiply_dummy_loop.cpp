@@ -33,7 +33,6 @@ int main(int argc, char* argv[]) {
     init(B, size, 123);
     init(C, size, 321);
 
-    // auto t1 = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < size; i++) {
         int b = B[i];
         int c = C[i];
