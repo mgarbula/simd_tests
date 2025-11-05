@@ -4,5 +4,9 @@
 !Makefile
 .vscode
 
+turn_on_perf.sh
+fill_cache.sh
+
 *.png
+!benchmark/benchmark_dummy_loop.png
 *.txt
