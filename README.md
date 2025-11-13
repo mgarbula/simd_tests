@@ -48,11 +48,11 @@ make benchmark
 ./run_benchmark.sh
 ```
 It will take a while to finish.
-Test runs each approach (intrinsics, vc, omp, compiler) for different data size. In the `run_benchmark.sh` file there is a for loop which starts at 100, increments by 100 and finishes at 10000. This is size factor (lets call it `f`) passed to each program. The real size of one array inside the program is `f * f`. There are three arrays, so total number of data is `3 * f * f`.
+Test runs each approach (intrinsics, vc, omp, compiler) for different data size. In the `run_benchmark.sh` file there is a for loop which starts at 100, increments by 100 and finishes at 10000. This is size factor (lets call it `f`) passed to each program. The real size of one array inside the program is `f * 10000`. There are three arrays, so total number of data is `3 * f * 10000`.
 
 After script will finish the plot will be created. IT should be similar to
 ![Cannot find the plot](./benchmark/benchmark_dummy_loop.png)
-As you can see all approaches seem to behave identically. The question is, why are there peaks at some sizes. I am also not sure if I understant the shape of the plot - I will try to understand it better.
+As you can see all approaches seem to behave identically. The question is, why are there peaks at some sizes.
 
 ## intrinsics continuous
 For big data size (1.2 GB) there is no way it fits in the cache. 

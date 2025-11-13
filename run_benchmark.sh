@@ -36,16 +36,16 @@ do
         ./benchmark/vc_simple_dummy_loop $i
         ./benchmark/simple_dummy_loop $i
     done
-    printf "$((3*i*i)) " >> $AVG_INTR
+    printf "$((3*i*10000)) " >> $AVG_INTR
     echo $(average "./benchmark/intrinsics_simple_dummy_loop_times_for_$i.txt") >> $AVG_INTR
 
-    printf "$((3*i*i)) " >> $AVG_OMP
+    printf "$((3*i*10000)) " >> $AVG_OMP
     echo $(average "./benchmark/omp_simple_dummy_loop_times_for_$i.txt") >> $AVG_OMP
 
-    printf "$((3*i*i)) " >> $AVG_VC
+    printf "$((3*i*10000)) " >> $AVG_VC
     echo $(average "./benchmark/vc_simple_dummy_loop_times_for_$i.txt") >> $AVG_VC
 
-    printf "$((3*i*i)) " >> $AVG_SIMPLE
+    printf "$((3*i*10000)) " >> $AVG_SIMPLE
     echo $(average "./benchmark/simple_dummy_loop_times_for_$i.txt") >> $AVG_SIMPLE
 done
 
