@@ -9,6 +9,7 @@ fill_cache.sh
 
 *.png
 !benchmark/benchmark_dummy_loop.png
+!roofline/more_calcs_5-12.png
 *.txt
 *.log
 *.data
