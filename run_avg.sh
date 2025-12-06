@@ -55,6 +55,24 @@ average () {
 #     ./intrinsics/intrinsics_simple_dummy_loop
 # done
 
+# echo "start intrinsics_simple_dummy_loop_minus"
+# for i in {1..100}
+# do
+#     ./intrinsics/intrinsics_simple_dummy_loop_minus
+# done
+
+# echo "start intrinsics_simple_dummy_loop_more_calcs"
+# for i in {1..100}
+# do
+#     ./intrinsics/intrinsics_simple_dummy_loop_more_calcs
+# done
+
+# echo "start intrinsics_continuous_more_calcs"
+# for i in {1..100}
+# do
+#     ./intrinsics/intrinsics_continuous_more_calcs
+# done
+
 # echo "start intrinsics_continuous"
 # for i in {1..100}
 # do
@@ -104,6 +122,8 @@ average () {
 # average "./vc/vc_simple_dummy_loop.txt"
 average "./intrinsics/intrinsics_simple.txt"
 average "./intrinsics/intrinsics_simple_dummy_loop.txt"
+average "./intrinsics/intrinsics_simple_dummy_loop_minus.txt"
+average "./intrinsics/intrinsics_simple_dummy_loop_more_calcs.txt"
 average "./intrinsics/intrinsics_continuous.txt"
 average "./intrinsics/intrinsics_continuous_dummy_loop.txt"
 # average "./intrinsics/intrinsics_simple_multiply.txt"

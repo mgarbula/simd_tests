@@ -10,3 +10,5 @@ fill_cache.sh
 *.png
 !benchmark/benchmark_dummy_loop.png
 *.txt
+*.log
+*.data

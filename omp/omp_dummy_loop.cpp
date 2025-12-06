@@ -1,0 +1,47 @@
+#include <iostream>
+#include <fstream>
+#include <random>
+#include <chrono>
+#include <omp.h>
+
+const int SIZE_1D = 10000;
+
+void init(float* arr, int size, int seed) {
+    std::mt19937 rng(seed);
+    std::uniform_real_distribution<float> dist(1, 10);
+
+    for (int i = 0; i < size; i++) {
+        arr[i] = dist(rng);
+    }
+}
+
+int main(int argc, char* argv[]) {
+    int size = SIZE_1D * SIZE_1D;
+    std::ofstream timesFile;
+    std::string fileName(argv[0]);
+    timesFile.open(fileName + ".txt", std::ios::app);
+
+    float* A = (float*) malloc(size * sizeof(float));
+    float* B = (float*) malloc(size * sizeof(float));
+    float* C = (float*) malloc(size * sizeof(float));
+
+    init(B, size, 123);
+    init(C, size, 321);
+
+    for (int i = 0; i < size; i++) {
+        int b = B[i];
+        int c = C[i];
+        int a = b + c;
+        a *= 3;
+        A[i] = a;
+    }
+
+    auto t1 = std::chrono::high_resolution_clock::now();
+    #pragma omp simd
+    for (int i = 0; i < size; i++) {
+        A[i] = B[i] + C[i];
+    }
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
+    timesFile << ms_int.count() << std::endl;
+}
