@@ -3,6 +3,7 @@
 #include <immintrin.h>
 #include <random>
 #include <chrono>
+#include "warm_up.hpp"
 
 typedef __m256 float8;
 
@@ -18,7 +19,7 @@ void init(float* arr, int size, int seed) {
 }
 
 void my_func(float* A, float* B, float* C, int size, int VECTOR_SIZE) {
-    std::cout << "PERF_START\n"; 
+    //std::cout << "PERF_START\n"; 
     for (int i = 0; i < size; i += VECTOR_SIZE) {
         float8 vec_b = _mm256_load_ps(B + i);
         float8 vec_c = _mm256_load_ps(C + i);
@@ -26,7 +27,7 @@ void my_func(float* A, float* B, float* C, int size, int VECTOR_SIZE) {
         float8 vec_a = _mm256_add_ps(vec_b, vec_c);
         _mm256_store_ps(A + i, vec_a);
     }
-    std::cout << "PERF_STOP\n";
+    //std::cout << "PERF_STOP\n";
 }
 
 void dummy_loop(float* A, float* B, float* C, int size) {
@@ -42,9 +43,9 @@ void dummy_loop(float* A, float* B, float* C, int size) {
 int main(int argc, char* argv[]) {
     int size = SIZE_1D * SIZE_1D;
     const int VECTOR_SIZE = sizeof(float8) / sizeof(float);
-    std::ofstream timesFile;
-    std::string fileName(argv[0]);
-    timesFile.open(fileName + ".txt", std::ios::app);
+    // std::ofstream timesFile;
+    // std::string fileName(argv[0]);
+    // timesFile.open(fileName + ".txt", std::ios::app);
 
     float* A = (float*) _mm_malloc(size * sizeof(float), 32);
     float* B = (float*) _mm_malloc(size * sizeof(float), 32);
@@ -54,13 +55,23 @@ int main(int argc, char* argv[]) {
     init(C, size, 321);
 
     dummy_loop(A, B, C, size);
-
-    auto t1 = std::chrono::high_resolution_clock::now();
+    cpu_warmup();
+    int reps = 10;
     my_func(A, B, C, size, VECTOR_SIZE);
+    auto t1 = std::chrono::high_resolution_clock::now();
+    for (int k = 0; k < reps; k++) {
+        my_func(A, B, C, size, VECTOR_SIZE);
+    }
     auto t2 = std::chrono::high_resolution_clock::now();
     auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
     // timesFile << ms_int.count() << std::endl;
-    std::cout << ms_int.count() << std::endl;
+    std::cout << ms_int.count() / (double) reps << std::endl;
+
+    float sum = 0.0;
+    for (int i = 0; i < size; i++) {
+        sum += A[i];
+    }
+    printf("sum = %f\n", sum);
 
     _mm_free(A);
     _mm_free(B);

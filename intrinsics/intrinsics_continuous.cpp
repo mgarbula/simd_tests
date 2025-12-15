@@ -30,7 +30,7 @@ void init(float* arr, int size) {
 }
 
 void my_func(float* arr, int size) {
-    std::cout << "PERF_START\n";
+    //std::cout << "PERF_START\n";
     for (int i = 0; i < size; i += 3 * VECTOR_SIZE) {
         float8 vec_b = _mm256_load_ps(arr + i);
         float8 vec_c = _mm256_load_ps(arr + i + VECTOR_SIZE);
@@ -38,7 +38,7 @@ void my_func(float* arr, int size) {
         float8 vec_a = _mm256_add_ps(vec_b, vec_c);
         _mm256_store_ps(arr + i + 2*VECTOR_SIZE, vec_a);
     }
-    std::cout << "PERF_STOP\n";
+    //std::cout << "PERF_STOP\n";
 }
 
 int main(int argc, char* argv[]) {

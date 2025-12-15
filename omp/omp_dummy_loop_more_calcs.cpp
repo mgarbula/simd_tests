@@ -50,4 +50,9 @@ int main(int argc, char* argv[]) {
     auto t2 = std::chrono::high_resolution_clock::now();
     auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
     timesFile << ms_int.count() << std::endl;
+    // float sum = 0;
+    // for (int i = 0; i < size; i++) {
+    //     sum += A[i];
+    // }
+    // printf("sum = %f\n", sum);
 }

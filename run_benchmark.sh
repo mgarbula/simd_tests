@@ -31,29 +31,29 @@ do
     echo Starting for $i
     for j in {1..10}
     do
-        ./benchmark/intrinsics_simple_dummy_loop $i
-        ./benchmark/omp_simple_dummy_loop $i
-        ./benchmark/vc_simple_dummy_loop $i
-        ./benchmark/simple_dummy_loop $i
+        ./benchmark/intrinsics_simple $i
+        ./benchmark/omp_simple $i
+        ./benchmark/vc_simple $i
+        ./benchmark/simple $i
     done
     printf "$((3*i*10000)) " >> $AVG_INTR
-    echo $(average "./benchmark/intrinsics_simple_dummy_loop_times_for_$i.txt") >> $AVG_INTR
+    echo $(average "./benchmark/intrinsics_simple_times_for_$i.txt") >> $AVG_INTR
 
     printf "$((3*i*10000)) " >> $AVG_OMP
-    echo $(average "./benchmark/omp_simple_dummy_loop_times_for_$i.txt") >> $AVG_OMP
+    echo $(average "./benchmark/omp_simple_times_for_$i.txt") >> $AVG_OMP
 
     printf "$((3*i*10000)) " >> $AVG_VC
-    echo $(average "./benchmark/vc_simple_dummy_loop_times_for_$i.txt") >> $AVG_VC
+    echo $(average "./benchmark/vc_simple_times_for_$i.txt") >> $AVG_VC
 
     printf "$((3*i*10000)) " >> $AVG_SIMPLE
-    echo $(average "./benchmark/simple_dummy_loop_times_for_$i.txt") >> $AVG_SIMPLE
+    echo $(average "./benchmark/simple_times_for_$i.txt") >> $AVG_SIMPLE
 done
 
 rm ./benchmark/*_times_for*.txt
 
 gnuplot << EOF
     set terminal png size 1000, 700
-    set output "./benchmark/benchmark_dummy_loop.png"
+    set output "./benchmark/benchmark.png"
     
     set title "Comparision of four approaches" font ",16"
     set xlabel "total size of data"

@@ -38,7 +38,7 @@ clean:
 	rm -f $(TARGETS)
 
 benchmark:
-	$(CXX) $(CXXFLAGS) $(AVX_FLAGS) benchmark/intrinsics_simple_dummy_loop.cpp -o benchmark/intrinsics_simple_dummy_loop
-	$(CXX) $(CXXFLAGS) $(AVX_FLAGS) benchmark/omp_simple_dummy_loop.cpp -o benchmark/omp_simple_dummy_loop -fopenmp
-	$(CXX) $(CXXFLAGS) $(AVX_FLAGS) benchmark/vc_simple_dummy_loop.cpp -o benchmark/vc_simple_dummy_loop -lVc
-	$(CXX) $(CXXFLAGS) $(AVX_FLAGS) benchmark/simple_dummy_loop.cpp -o benchmark/simple_dummy_loop
+	$(CXX) $(CXXFLAGS) $(AVX_FLAGS) benchmark/intrinsics_simple.cpp -o benchmark/intrinsics_simple
+	$(CXX) $(CXXFLAGS) $(AVX_FLAGS) benchmark/omp_simple.cpp -o benchmark/omp_simple -fopenmp
+	$(CXX) $(CXXFLAGS) $(AVX_FLAGS) benchmark/vc_simple.cpp -o benchmark/vc_simple -lVc
+	$(CXX) $(CXXFLAGS) $(AVX_FLAGS) benchmark/simple.cpp -o benchmark/simple

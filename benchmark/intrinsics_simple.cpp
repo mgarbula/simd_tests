@@ -1,8 +1,11 @@
 #include <iostream>
 #include <fstream>
+#include <immintrin.h>
 #include <random>
 #include <chrono>
-#include <mm_malloc.h>
+
+typedef __m256 float8;
+typedef __m256i int8;
 
 const int SIZE_1D = 10000;
 
@@ -16,11 +19,13 @@ void init(float* arr, int size, int seed) {
 }
 
 int main(int argc, char* argv[]) {
-    int size = SIZE_1D * SIZE_1D;
+    int mul = atoi(argv[1]);
+    int size = mul * SIZE_1D;
+    const int VECTOR_SIZE = sizeof(float8) / sizeof(float);
+
     std::ofstream timesFile;
     std::string fileName(argv[0]);
-    int extra_calcs = std::stoi(argv[1]);
-    timesFile.open(fileName + "_times_for_" + std::to_string(extra_calcs) + ".txt", std::ios::app);
+    timesFile.open(fileName + "_times_for_" + std::to_string(mul) + ".txt", std::ios::app);
 
     float* A = (float*) _mm_malloc(size * sizeof(float), 32);
     float* B = (float*) _mm_malloc(size * sizeof(float), 32);
@@ -29,32 +34,17 @@ int main(int argc, char* argv[]) {
     init(B, size, 123);
     init(C, size, 321);
 
-    for (int i = 0; i < size; i++) {
-        int b = B[i];
-        int c = C[i];
-        int a = b + c;
-        a *= 3;
-        A[i] = a;
-    }
-
     auto t1 = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < size; i++) {
-        float mul = B[i] * C[i];
-        float a = B[i] + C[i];
-        for (int k = 0; k < extra_calcs; k++) {
-            a = mul + a;
-        }
-        A[i] = a;
+    for (int i = 0; i < size; i += VECTOR_SIZE) {
+        float8 vec_b = _mm256_load_ps(B + i);
+        float8 vec_c = _mm256_load_ps(C + i);
+
+        float8 vec_a = _mm256_add_ps(vec_b, vec_c);
+        _mm256_store_ps(A + i, vec_a);
     }
     auto t2 = std::chrono::high_resolution_clock::now();
-    auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
+    auto ms_int = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
     timesFile << ms_int.count() << std::endl;
-
-    // float sum = 0;
-    // for (int i = 0; i < size; i++) {
-    //     sum += A[i];
-    // }
-    // printf("sum = %f\n", sum);
 
     _mm_free(A);
     _mm_free(B);
