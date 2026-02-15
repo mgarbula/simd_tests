@@ -120,13 +120,87 @@ _Z7my_funcPfS_S_ii:
 	.cfi_endproc
 .LFE10398:
 	.size	_Z7my_funcPfS_S_ii, .-_Z7my_funcPfS_S_ii
+	.section	.rodata.str1.1
+.LC7:
+	.string	"PERF_START\n"
+.LC8:
+	.string	"PERF_STOP\n"
+	.text
+	.p2align 4
+	.globl	_Z12measure_loopPfS_S_i
+	.type	_Z12measure_loopPfS_S_i, @function
+_Z12measure_loopPfS_S_i:
+.LFB10399:
+	.cfi_startproc
+	endbr64
+	push	rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	mov	rbp, rsp
+	.cfi_def_cfa_register 6
+	push	r15
+	.cfi_offset 15, -24
+	lea	r15, _ZSt4cout[rip]
+	push	r14
+	.cfi_offset 14, -32
+	mov	r14, rsi
+	lea	rsi, .LC7[rip]
+	push	r13
+	.cfi_offset 13, -40
+	mov	r13, rdx
+	mov	edx, 11
+	push	r12
+	.cfi_offset 12, -48
+	mov	r12d, ecx
+	push	rbx
+	.cfi_offset 3, -56
+	mov	rbx, rdi
+	mov	rdi, r15
+	and	rsp, -32
+	call	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l@PLT
+	mov	edx, 100
+	test	r12d, r12d
+	jle	.L30
+	.p2align 4,,10
+	.p2align 3
+.L29:
+	xor	eax, eax
+	.p2align 4,,10
+	.p2align 3
+.L31:
+	vmovaps	ymm1, YMMWORD PTR [r14+rax*4]
+	vaddps	ymm0, ymm1, YMMWORD PTR 0[r13+rax*4]
+	vaddps	ymm0, ymm0, YMMWORD PTR [rbx+rax*4]
+	vmovaps	YMMWORD PTR [rbx+rax*4], ymm0
+	add	rax, 8
+	cmp	r12d, eax
+	jg	.L31
+	sub	edx, 1
+	jne	.L29
+	vzeroupper
+.L30:
+	lea	rsp, -40[rbp]
+	mov	rdi, r15
+	mov	edx, 10
+	pop	rbx
+	lea	rsi, .LC8[rip]
+	pop	r12
+	pop	r13
+	pop	r14
+	pop	r15
+	pop	rbp
+	.cfi_def_cfa 7, 8
+	jmp	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l@PLT
+	.cfi_endproc
+.LFE10399:
+	.size	_Z12measure_loopPfS_S_i, .-_Z12measure_loopPfS_S_i
 	.section	.text._ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EE11_M_gen_randEv,"axG",@progbits,_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EE11_M_gen_randEv,comdat
 	.align 2
 	.p2align 4
 	.weak	_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EE11_M_gen_randEv
 	.type	_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EE11_M_gen_randEv, @function
 _ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EE11_M_gen_randEv:
-.LFB11160:
+.LFB11161:
 	.cfi_startproc
 	endbr64
 	mov	rdx, rdi
@@ -147,7 +221,7 @@ _ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm429496
 	vpbroadcastq	ymm6, xmm3
 	.p2align 4,,10
 	.p2align 3
-.L29:
+.L42:
 	vpand	ymm5, ymm9, YMMWORD PTR 8[rax]
 	vpand	ymm4, ymm10, YMMWORD PTR [rax]
 	add	rax, 32
@@ -160,7 +234,7 @@ _ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm429496
 	vpxor	ymm4, ymm5, ymm4
 	vmovdqu	YMMWORD PTR -32[rax], ymm4
 	cmp	rcx, rax
-	jne	.L29
+	jne	.L42
 	mov	rax, QWORD PTR 1808[rdx]
 	vpunpcklqdq	xmm0, xmm0, xmm0
 	vpunpcklqdq	xmm1, xmm1, xmm1
@@ -188,17 +262,17 @@ _ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm429496
 	xor	rax, rcx
 	vpunpcklqdq	xmm2, xmm3, xmm3
 	lea	rcx, 1816[rdx]
-	vpbroadcastq	ymm3, QWORD PTR .LC15[rip]
+	vpbroadcastq	ymm3, QWORD PTR .LC17[rip]
 	vpand	xmm0, xmm0, xmm2
 	mov	QWORD PTR 1808[rdx], rax
 	mov	eax, 2567483615
-	vpbroadcastq	ymm2, QWORD PTR .LC16[rip]
+	vpbroadcastq	ymm2, QWORD PTR .LC18[rip]
 	vpxor	xmm0, xmm1, xmm0
 	vmovq	xmm7, rax
-	vpbroadcastq	ymm1, QWORD PTR .LC17[rip]
+	vpbroadcastq	ymm1, QWORD PTR .LC19[rip]
 	vmovdqu	XMMWORD PTR 1792[rdx], xmm0
 	vpbroadcastq	ymm0, xmm7
-.L30:
+.L43:
 	vpand	ymm5, ymm2, YMMWORD PTR 8[rcx]
 	vpand	ymm4, ymm3, YMMWORD PTR [rcx]
 	add	rcx, 32
@@ -211,7 +285,7 @@ _ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm429496
 	vpxor	ymm4, ymm5, ymm4
 	vmovdqu	YMMWORD PTR -32[rcx], ymm4
 	cmp	rsi, rcx
-	jne	.L30
+	jne	.L43
 	mov	rax, QWORD PTR 4984[rdx]
 	mov	rcx, QWORD PTR [rdx]
 	mov	QWORD PTR 4992[rdx], 0
@@ -229,7 +303,7 @@ _ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm429496
 	vzeroupper
 	ret
 	.cfi_endproc
-.LFE11160:
+.LFE11161:
 	.size	_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EE11_M_gen_randEv, .-_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EE11_M_gen_randEv
 	.text
 	.p2align 4
@@ -262,7 +336,7 @@ _Z4initPfii:
 	mov	QWORD PTR [rsp], rcx
 	.p2align 4,,10
 	.p2align 3
-.L34:
+.L47:
 	mov	rax, rcx
 	shr	rax, 30
 	xor	rax, rcx
@@ -271,40 +345,40 @@ _Z4initPfii:
 	mov	QWORD PTR [rbx+rdx*8], rcx
 	add	rdx, 1
 	cmp	rdx, 624
-	jne	.L34
+	jne	.L47
 	mov	QWORD PTR 4992[rsp], 624
 	test	esi, esi
-	jle	.L33
+	jle	.L46
 	movsx	rsi, esi
 	vxorps	xmm4, xmm4, xmm4
 	mov	rbp, rdi
-	vmovss	xmm3, DWORD PTR .LC19[rip]
+	vmovss	xmm3, DWORD PTR .LC21[rip]
 	vmovss	xmm1, DWORD PTR .LC2[rip]
-	vmovss	xmm5, DWORD PTR .LC20[rip]
+	vmovss	xmm5, DWORD PTR .LC22[rip]
 	lea	r12, [rdi+rsi*4]
-	jmp	.L42
+	jmp	.L55
 	.p2align 4,,10
 	.p2align 3
-.L48:
+.L61:
 	vcvtsi2ss	xmm0, xmm4, rax
-.L38:
+.L51:
 	vxorps	xmm2, xmm2, xmm2
 	vaddss	xmm0, xmm0, xmm2
 	vmulss	xmm0, xmm0, xmm3
 	vcomiss	xmm0, xmm1
-	jnb	.L39
+	jnb	.L52
 	vmulss	xmm0, xmm0, xmm5
 	add	rbp, 4
 	vaddss	xmm0, xmm0, xmm1
 	vmovss	DWORD PTR -4[rbp], xmm0
 	cmp	r12, rbp
-	je	.L33
-.L40:
+	je	.L46
+.L53:
 	mov	rdx, rcx
-.L42:
+.L55:
 	cmp	rdx, 623
-	ja	.L47
-.L36:
+	ja	.L60
+.L49:
 	mov	rax, QWORD PTR [rsp+rdx*8]
 	lea	rcx, 1[rdx]
 	mov	QWORD PTR 4992[rsp], rcx
@@ -323,34 +397,34 @@ _Z4initPfii:
 	mov	rdx, rax
 	shr	rdx, 18
 	xor	rax, rdx
-	jns	.L48
+	jns	.L61
 	mov	rdx, rax
 	and	eax, 1
 	shr	rdx
 	or	rdx, rax
 	vcvtsi2ss	xmm0, xmm4, rdx
 	vaddss	xmm0, xmm0, xmm0
-	jmp	.L38
+	jmp	.L51
 	.p2align 4,,10
 	.p2align 3
-.L47:
+.L60:
 	mov	rdi, rbx
 	call	_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EE11_M_gen_randEv
 	mov	rdx, QWORD PTR 4992[rsp]
-	vmovss	xmm5, DWORD PTR .LC20[rip]
+	vmovss	xmm5, DWORD PTR .LC22[rip]
 	vxorps	xmm4, xmm4, xmm4
 	vmovss	xmm1, DWORD PTR .LC2[rip]
-	vmovss	xmm3, DWORD PTR .LC19[rip]
-	jmp	.L36
-.L39:
+	vmovss	xmm3, DWORD PTR .LC21[rip]
+	jmp	.L49
+.L52:
 	mov	DWORD PTR 0[rbp], 0x411fffff
 	add	rbp, 4
 	cmp	rbp, r12
-	jne	.L40
-.L33:
+	jne	.L53
+.L46:
 	mov	rax, QWORD PTR 5000[rsp]
 	sub	rax, QWORD PTR fs:40
-	jne	.L49
+	jne	.L62
 	add	rsp, 5008
 	.cfi_remember_state
 	.cfi_def_cfa_offset 32
@@ -361,152 +435,123 @@ _Z4initPfii:
 	pop	r12
 	.cfi_def_cfa_offset 8
 	ret
-.L49:
+.L62:
 	.cfi_restore_state
 	call	__stack_chk_fail@PLT
 	.cfi_endproc
 .LFE10397:
 	.size	_Z4initPfii, .-_Z4initPfii
 	.section	.rodata.str1.1
-.LC22:
-	.string	"avg time: "
 .LC24:
+	.string	"avg time: "
+.LC26:
 	.string	"sum = %f\n"
 	.section	.text.startup,"ax",@progbits
 	.p2align 4
 	.globl	main
 	.type	main, @function
 main:
-.LFB10399:
+.LFB10400:
 	.cfi_startproc
 	endbr64
-	lea	r10, 8[rsp]
-	.cfi_def_cfa 10, 0
-	and	rsp, -32
+	push	r14
+	.cfi_def_cfa_offset 16
+	.cfi_offset 14, -16
 	mov	edx, 400000000
 	mov	esi, 32
-	push	QWORD PTR -8[r10]
-	push	rbp
-	mov	rbp, rsp
-	.cfi_escape 0x10,0x6,0x2,0x76,0
-	push	r15
-	push	r14
 	push	r13
+	.cfi_def_cfa_offset 24
+	.cfi_offset 13, -24
 	push	r12
-	.cfi_escape 0x10,0xf,0x2,0x76,0x78
-	.cfi_escape 0x10,0xe,0x2,0x76,0x70
-	.cfi_escape 0x10,0xd,0x2,0x76,0x68
-	.cfi_escape 0x10,0xc,0x2,0x76,0x60
-	lea	r12, -64[rbp]
-	push	r10
-	.cfi_escape 0xf,0x3,0x76,0x58,0x6
-	mov	rdi, r12
+	.cfi_def_cfa_offset 32
+	.cfi_offset 12, -32
+	push	rbp
+	.cfi_def_cfa_offset 40
+	.cfi_offset 6, -40
 	push	rbx
-	.cfi_escape 0x10,0x3,0x2,0x76,0x50
+	.cfi_def_cfa_offset 48
+	.cfi_offset 3, -48
 	xor	ebx, ebx
-	sub	rsp, 32
+	sub	rsp, 16
+	.cfi_def_cfa_offset 64
 	mov	rax, QWORD PTR fs:40
-	mov	QWORD PTR -56[rbp], rax
+	mov	QWORD PTR 8[rsp], rax
 	xor	eax, eax
+	mov	rbp, rsp
+	mov	rdi, rbp
 	call	posix_memalign@PLT
 	test	eax, eax
-	jne	.L51
-	mov	rbx, QWORD PTR -64[rbp]
-.L51:
+	jne	.L64
+	mov	rbx, QWORD PTR [rsp]
+.L64:
 	mov	edx, 100000000
 	xor	esi, esi
 	mov	rdi, rbx
-	xor	r13d, r13d
+	xor	r12d, r12d
 	call	memset@PLT
 	mov	edx, 400000000
 	mov	esi, 32
-	mov	rdi, r12
+	mov	rdi, rbp
 	call	posix_memalign@PLT
 	test	eax, eax
-	jne	.L52
-	mov	r13, QWORD PTR -64[rbp]
-.L52:
-	mov	rdi, r12
+	jne	.L65
+	mov	r12, QWORD PTR [rsp]
+.L65:
+	mov	rdi, rbp
 	mov	edx, 400000000
 	mov	esi, 32
-	xor	r12d, r12d
+	xor	ebp, ebp
 	call	posix_memalign@PLT
 	test	eax, eax
-	jne	.L53
-	mov	r12, QWORD PTR -64[rbp]
-.L53:
+	jne	.L66
+	mov	rbp, QWORD PTR [rsp]
+.L66:
 	mov	edx, 123
-	mov	esi, 100000000
-	mov	rdi, r13
-	call	_Z4initPfii
-	mov	edx, 321
 	mov	esi, 100000000
 	mov	rdi, r12
 	call	_Z4initPfii
-	call	_Z10cpu_warmupv
-	xor	eax, eax
-	.p2align 4,,10
-	.p2align 3
-.L54:
-	vmovaps	ymm2, YMMWORD PTR 0[r13+rax]
-	vaddps	ymm0, ymm2, YMMWORD PTR [r12+rax]
-	vaddps	ymm0, ymm0, YMMWORD PTR [rbx+rax]
-	vmovaps	YMMWORD PTR [rbx+rax], ymm0
-	add	rax, 32
-	cmp	rax, 400000000
-	jne	.L54
-	vzeroupper
+	mov	edx, 321
+	mov	rdi, rbp
+	mov	esi, 100000000
+	call	_Z4initPfii
+	lea	r14, _ZSt4cout[rip]
 	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
-	mov	edx, 8
-	mov	r14, rax
-	.p2align 4,,10
-	.p2align 3
-.L55:
-	xor	eax, eax
-	.p2align 4,,10
-	.p2align 3
-.L56:
-	vmovaps	ymm1, YMMWORD PTR 0[r13+rax]
-	vaddps	ymm0, ymm1, YMMWORD PTR [r12+rax]
-	vaddps	ymm0, ymm0, YMMWORD PTR [rbx+rax]
-	vmovaps	YMMWORD PTR [rbx+rax], ymm0
-	add	rax, 32
-	cmp	rax, 400000000
-	jne	.L56
-	sub	edx, 1
-	jne	.L55
-	vzeroupper
+	mov	ecx, 100000000
+	mov	rdx, rbp
+	mov	rsi, r12
+	mov	rdi, rbx
+	mov	r13, rax
+	call	_Z12measure_loopPfS_S_i
 	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
-	lea	r15, _ZSt4cout[rip]
+	mov	rdi, r14
+	lea	rsi, .LC24[rip]
 	movabs	rdx, 4835703278458516699
-	sub	rax, r14
-	mov	rdi, r15
-	lea	rsi, .LC22[rip]
+	sub	rax, r13
 	mov	rcx, rax
 	imul	rdx
 	sar	rcx, 63
 	sar	rdx, 18
 	sub	rdx, rcx
-	mov	r14, rdx
+	mov	r13, rdx
 	mov	edx, 10
 	call	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l@PLT
+	mov	rdi, r14
 	vxorps	xmm0, xmm0, xmm0
-	mov	rdi, r15
-	vcvtsi2sd	xmm0, xmm0, r14
-	vmulsd	xmm0, xmm0, QWORD PTR .LC23[rip]
+	vcvtsi2sd	xmm0, xmm0, r13
+	vdivsd	xmm0, xmm0, QWORD PTR .LC25[rip]
 	call	_ZNSo9_M_insertIdEERSoT_@PLT
-	mov	r14, rax
+	mov	r13, rax
 	mov	rax, QWORD PTR [rax]
 	mov	rax, QWORD PTR -24[rax]
-	mov	r15, QWORD PTR 240[r14+rax]
-	test	r15, r15
-	je	.L73
-	cmp	BYTE PTR 56[r15], 0
-	je	.L60
-	movzx	eax, BYTE PTR 67[r15]
-.L61:
+	mov	r14, QWORD PTR 240[r13+rax]
+	test	r14, r14
+	je	.L80
+	cmp	BYTE PTR 56[r14], 0
+	je	.L69
+	movzx	eax, BYTE PTR 67[r14]
+.L70:
 	movsx	esi, al
-	mov	rdi, r14
+	mov	rdi, r13
 	call	_ZNSo3putEc@PLT
 	mov	rdi, rax
 	call	_ZNSo5flushEv@PLT
@@ -515,7 +560,7 @@ main:
 	vxorps	xmm0, xmm0, xmm0
 	.p2align 4,,10
 	.p2align 3
-.L62:
+.L71:
 	vaddss	xmm0, xmm0, DWORD PTR [rax]
 	add	rax, 32
 	vaddss	xmm0, xmm0, DWORD PTR -28[rax]
@@ -526,53 +571,54 @@ main:
 	vaddss	xmm0, xmm0, DWORD PTR -8[rax]
 	vaddss	xmm0, xmm0, DWORD PTR -4[rax]
 	cmp	rdx, rax
-	jne	.L62
-	lea	rsi, .LC24[rip]
+	jne	.L71
+	lea	rsi, .LC26[rip]
 	mov	edi, 2
 	mov	eax, 1
 	vcvtss2sd	xmm0, xmm0, xmm0
 	call	__printf_chk@PLT
 	mov	rdi, rbx
 	call	free@PLT
-	mov	rdi, r13
-	call	free@PLT
 	mov	rdi, r12
 	call	free@PLT
-	mov	rax, QWORD PTR -56[rbp]
+	mov	rdi, rbp
+	call	free@PLT
+	mov	rax, QWORD PTR 8[rsp]
 	sub	rax, QWORD PTR fs:40
-	jne	.L72
-	add	rsp, 32
+	jne	.L79
+	add	rsp, 16
+	.cfi_remember_state
+	.cfi_def_cfa_offset 48
 	xor	eax, eax
 	pop	rbx
-	pop	r10
-	.cfi_remember_state
-	.cfi_def_cfa 10, 0
-	pop	r12
-	pop	r13
-	pop	r14
-	pop	r15
+	.cfi_def_cfa_offset 40
 	pop	rbp
-	lea	rsp, -8[r10]
-	.cfi_def_cfa 7, 8
+	.cfi_def_cfa_offset 32
+	pop	r12
+	.cfi_def_cfa_offset 24
+	pop	r13
+	.cfi_def_cfa_offset 16
+	pop	r14
+	.cfi_def_cfa_offset 8
 	ret
-.L60:
+.L69:
 	.cfi_restore_state
-	mov	rdi, r15
+	mov	rdi, r14
 	call	_ZNKSt5ctypeIcE13_M_widen_initEv@PLT
-	mov	rax, QWORD PTR [r15]
+	mov	rax, QWORD PTR [r14]
 	mov	esi, 10
-	mov	rdi, r15
+	mov	rdi, r14
 	call	[QWORD PTR 48[rax]]
-	jmp	.L61
-.L73:
-	mov	rax, QWORD PTR -56[rbp]
+	jmp	.L70
+.L80:
+	mov	rax, QWORD PTR 8[rsp]
 	sub	rax, QWORD PTR fs:40
-	jne	.L72
+	jne	.L79
 	call	_ZSt16__throw_bad_castv@PLT
-.L72:
+.L79:
 	call	__stack_chk_fail@PLT
 	.cfi_endproc
-.LFE10399:
+.LFE10400:
 	.size	main, .-main
 	.section	.rodata.cst4,"aM",@progbits,4
 	.align 4
@@ -586,26 +632,26 @@ main:
 	.long	1056964608
 	.section	.rodata.cst8,"aM",@progbits,8
 	.align 8
-.LC15:
+.LC17:
 	.quad	-2147483648
 	.align 8
-.LC16:
+.LC18:
 	.quad	2147483647
 	.align 8
-.LC17:
+.LC19:
 	.quad	1
 	.section	.rodata.cst4
 	.align 4
-.LC19:
+.LC21:
 	.long	796917760
 	.align 4
-.LC20:
+.LC22:
 	.long	1091567616
 	.section	.rodata.cst8
 	.align 8
-.LC23:
+.LC25:
 	.long	0
-	.long	1069547520
+	.long	1079574528
 	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
 	.section	.note.GNU-stack,"",@progbits
 	.section	.note.gnu.property,"a"

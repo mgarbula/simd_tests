@@ -52,6 +52,22 @@ int main(int argc, char* argv[]) {
         }
         _mm256_store_ps(A + i, vec_a);
     }
+    for (int i = 0; i < size; i += VECTOR_SIZE) {
+        float8 vec_b = _mm256_load_ps(B + i);
+        float8 vec_c = _mm256_load_ps(C + i);
+        float8 vec_mul = _mm256_mul_ps(vec_b, vec_c);
+        float8 vec_a = _mm256_add_ps(vec_b, vec_c);
+        for (int k = 0; k < extra_calcs; k++) {
+            vec_b = _mm256_add_ps(vec_a, vec_c);
+            vec_c = _mm256_add_ps(vec_a, _mm256_mul_ps(vec_b, vec_a));
+            vec_mul = _mm256_mul_ps(vec_b, vec_c);
+            vec_c = _mm256_add_ps(vec_a, vec_mul);
+            vec_b = _mm256_add_ps(vec_a, vec_c);
+            vec_c = _mm256_add_ps(vec_a, _mm256_mul_ps(vec_b, vec_a));
+            vec_a = _mm256_add_ps(vec_b, vec_c);
+        }
+        _mm256_store_ps(A + i, vec_a);
+    }
     auto t2 = std::chrono::high_resolution_clock::now();
     auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
     timesFile << ms_int.count() << std::endl;

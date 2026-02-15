@@ -10,9 +10,8 @@
 typedef __m256 float8;
 
 const int SIZE_1D = 10000;
-const int reps = 10;
 const int VECTOR_SIZE = sizeof(float8) / sizeof(float);
-
+const int reps = 10;
 void init(float* arr, int size, int seed) {
     std::mt19937 rng(seed);
     std::uniform_real_distribution<float> dist(1, 10);
@@ -33,7 +32,7 @@ void my_func(float* A, float* B, float* C, int size, int VECTOR_SIZE) {
     }
 }
 
-void measure_loop(float* A, float* B, float* C, int size) {
+void measure_loop(float* A, float* B, float* C, int size/*, int reps*/) {
     std::cout << "PERF_START\n";
     for (int k = 0; k < reps; k++) {
         my_func(A, B, C, size, VECTOR_SIZE);
@@ -60,12 +59,13 @@ int main(int argc, char* argv[]) {
     init(B, size, 123);
     init(C, size, 321);
 
+    
     //int reps = std::stoi(argv[1]);
     
     cpu_warmup();
     //my_func(A, B, C, size, VECTOR_SIZE);
     auto t1 = std::chrono::high_resolution_clock::now();
-    measure_loop(A, B, C, size);
+    measure_loop(A, B, C, size/*, reps*/);
     auto t2 = std::chrono::high_resolution_clock::now();
     auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
     // timesFile << ms_int.count() << std::endl;
