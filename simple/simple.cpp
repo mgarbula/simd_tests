@@ -28,13 +28,17 @@ int main(int argc, char* argv[]) {
     init(B, size, 123);
     init(C, size, 321);
 
+    // g++ -std=c++17 -O3 -Wall -pedantic -mavx2 -S -masm=intel simple/simple.cpp -o simple/simple_O3.asm
     auto t1 = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < size; i++) {
-        A[i] = B[i] + C[i];
+    for (int k = 0; k < 100; k++) {
+        for (int i = 0; i < size; i++) {
+            A[i] = B[i] + C[i];
+        }
     }
     auto t2 = std::chrono::high_resolution_clock::now();
     auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
-    timesFile << ms_int.count() << std::endl;
+    // timesFile << ms_int.count() << std::endl;
+    std::cout << "time: " << ms_int.count() << std::endl;
 
     _mm_free(A);
     _mm_free(B);
